@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Log in</title>
+<title>Exquisite Stories Login</title>
 </head>
 <body>
 <div class="container">

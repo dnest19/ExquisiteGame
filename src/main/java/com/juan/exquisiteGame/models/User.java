@@ -1,10 +1,20 @@
 package com.juan.exquisiteGame.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+
 
 @Entity
 @Table(name="users")
@@ -12,7 +22,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank
 	private String email;
+	@NotBlank
 	private String password;
 	public User() {
 	}
@@ -37,4 +49,16 @@ public class User {
 		this.password = password;
 	}
 	
+	public void addStory(Story story) {
+		this.stories.add(story);
+		story.getUsers().add(this);
+	}
+	
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(
+        name = "users_stories", 
+        joinColumns = @JoinColumn(name = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "story_id")
+    )
+	List<Story> stories;
 }

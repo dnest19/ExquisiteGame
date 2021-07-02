@@ -45,4 +45,7 @@ public class UserService {
 	public User getByEmail(String email) {
 		return this.uRepo.findByEmail(email);
 	}
+	public User saveUser(User user) {
+		return this.uRepo.save(user);
+	}
 }
